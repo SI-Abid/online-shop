@@ -2,16 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
+require("dotenv").config();
+
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb+srv://abid:%2A123%23%40abid@cluster0.o9yat1k.mongodb.net/amarDokan",
-  { useNewUrlParser: true }
-);
+const URI = process.env.MONGODB_URI;
+
+mongoose.connect(URI, { useNewUrlParser: true });
 
 const mongo = mongoose.connection;
 
@@ -26,8 +27,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", async (req, res) => {
-    const products = await Product.find();
-    res.json(products);
+  const products = await Product.find();
+  res.json(products);
 });
 
 app.post("/products", (req, res) => {
