@@ -20,26 +20,15 @@ mongo.on("connected", () => {
   console.log("MongoDB connected successfully");
 });
 
-const Product = require("./models/Product.model");
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/products", async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
-});
+const productsRouter = require("./routes/products");
+const usersRouter = require("./routes/users");
 
-app.post("/products", (req, res) => {
-  const product = new Product(req.body);
-  product
-    .save()
-    .then((product) => {
-      res.json(product);
-    })
-    .catch((err) => {});
-});
+app.use("/products", productsRouter);
+app.use("/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
