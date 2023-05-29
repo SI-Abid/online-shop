@@ -5,61 +5,61 @@ import { Button } from "./components/Button";
 import { Login } from "./components/Login";
 
 const App: React.FC = () => {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([{ name: "test", quantity: 1 }]);
-  const getProducts = async () => {
-    const response = await fetch("http://localhost:5000/products");
-    const data = await response.json();
-    setProducts(data);
-  };
-  getProducts();
-  const addToCart = async (name: string) => {
-    const prevCart = cart;
-    // check if product is already in cart
-    const productInCart = prevCart.find((item: any) => item.name === name);
-    // if product is in cart
-    if (productInCart) {
-      // increase quantity
-      const newCart = prevCart.map((item: any) => {
-        if (item.name === name) {
-          return {
-            ...item,
-            quantity: item.quantity + 1,
-          };
-        }
-        return item;
-      });
-      setCart(newCart);
-    }
-    // if product is not in cart
-    else {
-      setCart([...prevCart, { name, quantity: 1 }]);
-    }
-  };
-  const removeItem = async (name: string) => {
-    const prevCart = cart;
-    // check if product is already in cart
-    const productInCart = prevCart.find((item: any) => item.name === name);
-    if (productInCart && productInCart.quantity === 1) {
-      const newCart = prevCart.filter((item: any) => item.name !== name);
-      setCart(newCart);
-      return;
-    }
-    // if product is in cart
-    if (productInCart) {
-      // increase quantity
-      const newCart = prevCart.map((item: any) => {
-        if (item.name === name) {
-          return {
-            ...item,
-            quantity: item.quantity - 1,
-          };
-        }
-        return item;
-      });
-      setCart(newCart);
-    }
-  };
+  // const [products, setProducts] = useState([]);
+  // const [cart, setCart] = useState([{ name: "test", quantity: 1 }]);
+  // const getProducts = async () => {
+  //   const response = await fetch("http://localhost:5000/products");
+  //   const data = await response.json();
+  //   setProducts(data);
+  // };
+  // getProducts();
+  // const addToCart = async (name: string) => {
+  //   const prevCart = cart;
+  //   // check if product is already in cart
+  //   const productInCart = prevCart.find((item: any) => item.name === name);
+  //   // if product is in cart
+  //   if (productInCart) {
+  //     // increase quantity
+  //     const newCart = prevCart.map((item: any) => {
+  //       if (item.name === name) {
+  //         return {
+  //           ...item,
+  //           quantity: item.quantity + 1,
+  //         };
+  //       }
+  //       return item;
+  //     });
+  //     setCart(newCart);
+  //   }
+  //   // if product is not in cart
+  //   else {
+  //     setCart([...prevCart, { name, quantity: 1 }]);
+  //   }
+  // };
+  // const removeItem = async (name: string) => {
+  //   const prevCart = cart;
+  //   // check if product is already in cart
+  //   const productInCart = prevCart.find((item: any) => item.name === name);
+  //   if (productInCart && productInCart.quantity === 1) {
+  //     const newCart = prevCart.filter((item: any) => item.name !== name);
+  //     setCart(newCart);
+  //     return;
+  //   }
+  //   // if product is in cart
+  //   if (productInCart) {
+  //     // increase quantity
+  //     const newCart = prevCart.map((item: any) => {
+  //       if (item.name === name) {
+  //         return {
+  //           ...item,
+  //           quantity: item.quantity - 1,
+  //         };
+  //       }
+  //       return item;
+  //     });
+  //     setCart(newCart);
+  //   }
+  // };
   return (
     // <>
     <Login />

@@ -13,6 +13,7 @@ router.route("/").get((req, res) => {
 
 // add a user
 router.route("/add").post((req, res) => {
+  // console.log(req.body);
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -23,6 +24,8 @@ router.route("/add").post((req, res) => {
     password,
   });
 
+  // console.log(newUser);
+
   newUser
     .save()
     .then(() => res.status(200).json("User added!"))
@@ -31,17 +34,18 @@ router.route("/add").post((req, res) => {
 
 // get a user by name
 router.route("/:username").get((req, res) => {
+  console.log(req.params);
   User.findOne({ username: req.params.username })
     .then((user) => res.status(200).json(user))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 // get a user by email
-router.route("/:email").get((req, res) => {
-  User.findOne({ email: req.params.email })
-    .then((user) => res.status(200).json(user))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+// router.route("/:email").get((req, res) => {
+//   User.findOne({ email: req.params.email })
+//     .then((user) => res.status(200).json(user))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
 // delete a user by name
 router.route("/:username").delete((req, res) => {
@@ -49,7 +53,5 @@ router.route("/:username").delete((req, res) => {
     .then(() => res.json("User deleted."))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
-
 
 module.exports = router;
