@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/css/Signup.css";
+import { Login } from "./Login";
 
 export const Signup = () => {
     return (
         <div className="Auth-form-container">
           <form className="Auth-form">
             <div className="Auth-form-content">
-              <h3 className="Auth-form-title">Sign In</h3>
-              <div className="text-center">
-                Already registered?{" "}
-                <span className="link-primary" >
-                  Sign In
-                </span>
-              </div>
-              <div className="form-group mt-3">
+                <h3 className="Auth-form-title">Sign In</h3>
+                
+                    <div className="text-center">
+                        Already registered?{" "}
+                        <a href="" className="link-primary"> 
+                                Sign In
+                        </a>
+                    </div>
+              
+                <div className="form-group mt-3">
                 <input
                   type="email"
                   className="form-control mt-1"
@@ -41,7 +44,7 @@ export const Signup = () => {
                 </button>
               </div>
               <p className="text-center mt-2">
-                Forgot <a href="#">password?</a>
+                Forgot<a href="#" className="text-primary"> password?</a>
               </p>
             </div>
           </form>
