@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Product } from "./components/Product";
 import { Button } from "./components/Button";
 import { Login } from "./components/Login";
+import { Signup } from "./components/Signup";
 
 const App: React.FC = () => {
   // const [products, setProducts] = useState([]);
@@ -62,7 +63,8 @@ const App: React.FC = () => {
   // };
   return (
     // <>
-    <Login />
+    <Signup />
+    
     //   <div className="container">
     //     <h1>Products</h1>
     //     <hr />
