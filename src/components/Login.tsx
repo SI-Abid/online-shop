@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/css/Login.css";
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [useremail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState({
     username: "",
@@ -12,12 +12,25 @@ export const Login = () => {
   });
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    if (username === "" || password === "") {
+    if (useremail === "" || password === "") {
       alert("Please enter a username and password");
       return;
     }
     // api call to login
-    let data = await fetch("http://localhost:5000/users/" + username);
+    // use regex to check if useremail is email or username
+    const isEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(useremail);
+    let data;
+    if (isEmail) {
+      // if useremail is email
+      data = await fetch("http://localhost:5000/users/email/" + useremail);
+    } else {
+      // if useremail is username
+      data = await fetch("http://localhost:5000/users/username/" + useremail);
+    }
+    if (data.status === 400) {
+      alert(await data.text());
+      return;
+    }
     let user = await data.json();
     if (user) {
       if (user.password === password) {
@@ -28,6 +41,8 @@ export const Login = () => {
       } else {
         alert("Incorrect Password");
       }
+    } else {
+      alert("User does not exist");
     }
   };
   const handleLogout = () => {
@@ -65,8 +80,8 @@ export const Login = () => {
             <input
               type="text"
               className="form-control mt-2"
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username or Email"
+              onChange={(e) => setUserEmail(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">

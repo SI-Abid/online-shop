@@ -23,9 +23,6 @@ router.route("/add").post((req, res) => {
     email,
     password,
   });
-
-  // console.log(newUser);
-
   newUser
     .save()
     .then(() => res.status(200).json("User added!"))
@@ -33,7 +30,7 @@ router.route("/add").post((req, res) => {
 });
 
 // get a user by name
-router.route("/:username").get((req, res) => {
+router.route("/username/:username").get((req, res) => {
   console.log(req.params);
   User.findOne({ username: req.params.username })
     .then((user) => res.status(200).json(user))
@@ -41,11 +38,12 @@ router.route("/:username").get((req, res) => {
 });
 
 // get a user by email
-// router.route("/:email").get((req, res) => {
-//   User.findOne({ email: req.params.email })
-//     .then((user) => res.status(200).json(user))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+router.route("/email/:email").get((req, res) => {
+  console.log(req.params);
+  User.findOne({ email: req.params.email })
+    .then((user) => res.status(200).json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 // delete a user by name
 router.route("/:username").delete((req, res) => {
