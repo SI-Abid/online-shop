@@ -3,7 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/css/Signup.css";
 import { Login } from "./Login";
 
-export const Signup = () => {
+interface Props {
+  setUser: any;
+  setShowLogin: any;
+}
+
+export const Signup = ({ setUser, setShowLogin }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -21,7 +26,7 @@ export const Signup = () => {
       body: JSON.stringify({ username, email, password }),
     });
     if (data.status === 400) {
-      alert(await data.text());
+      alert("User already exists");
       return;
     }
     const user = await data.json();
@@ -29,9 +34,10 @@ export const Signup = () => {
       // set user in local storage
       localStorage.setItem("user", JSON.stringify(user));
       // set user in state
-      // setUser(user);
+      setUser(user);
+      setShowLogin(true);
     } else {
-      alert("User already exists");
+      alert(data.statusText);
     }
   };
 
@@ -43,7 +49,14 @@ export const Signup = () => {
 
           <div className="text-center">
             Already registered?{" "}
-            <a href="" className="link-primary">
+            <a
+              href=""
+              className="link-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowLogin(true);
+              }}
+            >
               Sign In
             </a>
           </div>

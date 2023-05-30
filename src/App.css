@@ -1,0 +1,9 @@
+.App{
+    width: 50%;
+    height: 80vh;
+    margin: auto;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

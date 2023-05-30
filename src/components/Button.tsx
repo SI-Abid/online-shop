@@ -5,17 +5,12 @@ interface Props {
   onClick: () => void;
 }
 
-export const Button = ({ children, onClick }: Props) => {
-  return (
-    <div>
-      {/* add item and remove item button  */}
-      <div className="row">
-        <div className="col-sm-3">
-          <button className="btn btn-primary" onClick={onClick}>
-            {children}
-          </button>
-        </div>
-      </div>
+export const Button = ({ children, onClick }: Props) => (
+  <div className="row">
+    <div className="col-sm-3">
+      <button className="btn btn-dark" onClick={onClick}>
+        {children}
+      </button>
     </div>
-  );
-};
+  </div>
+);

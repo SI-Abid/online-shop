@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/css/Login.css";
 
-export const Login = () => {
+interface Props {
+  setUser: any;
+  setShowLogin: any;
+}
+
+export const Login = ({ setUser, setShowLogin }: Props) => {
   const [useremail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-    email: "",
-  });
+
   const handleLogin = async (e: any) => {
     e.preventDefault();
     if (useremail === "" || password === "") {
@@ -38,18 +39,13 @@ export const Login = () => {
         localStorage.setItem("user", JSON.stringify(user));
         // set user in state
         setUser(user);
+        setShowLogin(false);
       } else {
         alert("Incorrect Password");
       }
     } else {
       alert("User does not exist");
     }
-  };
-  const handleLogout = () => {
-    // remove user from local storage
-    localStorage.removeItem("user");
-    // remove user from state
-    setUser({} as any);
   };
   //   check if user data is in local storage
   useEffect(() => {
@@ -58,19 +54,6 @@ export const Login = () => {
     setUser(userObj);
   }, []);
 
-  if (user && user.username) {
-    return (
-      <div className="container mt-5 text-center justify-content-center align-items-center flex-column flex-wrap ">
-        <h1>Welcome {user.username}</h1>
-        <br />
-        <h3>Protected Page</h3>
-        <br />
-        <button className="btn btn-dark" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-    );
-  }
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
@@ -101,9 +84,19 @@ export const Login = () => {
               Sign in
             </button>
           </div>
-          <p className="forgot-password text-right mt-2">
-            Forgot <a href="#">password?</a>
-          </p>
+          <div className="text-center mt-3">
+            Don't have an account?{" "}
+            <a
+              href=""
+              className="link-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowLogin(false);
+              }}
+            >
+              Sign Up
+            </a>
+          </div>
         </div>
       </form>
     </div>
