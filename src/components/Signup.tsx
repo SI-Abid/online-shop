@@ -44,8 +44,8 @@ export const Signup = ({ setUser, setShowLogin }: Props) => {
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
-        <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign In</h3>
+        <div className="Auth-form-content mb-5 mt-4">
+          <h3 className="Auth-form-title">Create Account</h3>
 
           <div className="text-center">
             Already registered?{" "}
@@ -94,13 +94,6 @@ export const Signup = ({ setUser, setShowLogin }: Props) => {
               Submit
             </button>
           </div>
-          <p className="text-center mt-2">
-            Forgot
-            <a href="#" className="text-primary">
-              {" "}
-              password?
-            </a>
-          </p>
         </div>
       </form>
     </div>

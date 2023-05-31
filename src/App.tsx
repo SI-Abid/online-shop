@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "./components/Button";
 import { Login } from "./components/Login";
@@ -9,6 +9,11 @@ import "./App.css";
 export const App: React.FC = () => {
   const [user, setUser] = useState({} as any);
   const [showLogin, setShowLogin] = useState(true);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const userObj = user ? JSON.parse(user) : null;
+    setUser(userObj);
+  }, []);
   const handleLogout = () => {
     // remove user from local storage
     localStorage.removeItem("user");
@@ -17,13 +22,7 @@ export const App: React.FC = () => {
     setShowLogin(true);
   };
   console.log(user);
-  if (!user || showLogin ) {
-    if (showLogin) {
-      return <Login setUser={setUser} setShowLogin={setShowLogin} />;
-    } else {
-      return <Signup setUser={setUser} setShowLogin={setShowLogin} />;
-    }
-  } else {
+  if (user) {
     return (
       <div className="App">
         <Home user={user}>
@@ -32,4 +31,9 @@ export const App: React.FC = () => {
       </div>
     );
   }
+  return showLogin ? (
+    <Login setUser={setUser} setShowLogin={setShowLogin} />
+  ) : (
+    <Signup setUser={setUser} setShowLogin={setShowLogin} />
+  );
 };

@@ -57,7 +57,7 @@ export const Login = ({ setUser, setShowLogin }: Props) => {
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
-        <div className="Auth-form-content">
+        <div className="Auth-form-content mb-5 mt-4">
           <h3 className="Auth-form-title">Sign In</h3>
           <div className="form-group mt-3">
             <input
