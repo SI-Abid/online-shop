@@ -3,6 +3,7 @@
 const router = require("express").Router();
 
 let Product = require("../models/Product.model");
+let Order = require("../models/Order.model");
 
 // get all products
 router.route("/").get((req, res) => {
@@ -43,6 +44,33 @@ router.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-
+router.route("/orders").post((req, res) => {
+  const products = req.body.products;
+  const username = req.body.username;
+  console.log(products);
+  // remove the quantity of each product ordered from the database and calculate the bill
+  let bill = 0;
+  products.forEach((product) => {
+    Product.findById(product._id)
+      .then((p) => {
+        bill += product.price * product.quantity;
+        p.quantity -= product.quantity;
+        p.save();
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
+  // create a new order
+  // TODO: bill is 0
+  const newOrder = new Order({
+    products,
+    username,
+    bill,
+    date: Date.now(),
+  });
+  newOrder
+    .save()
+    .then(() => res.json("Order placed successfully"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;

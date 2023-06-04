@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Button = ({ children, onClick }: Props) => (
-  <button className="btn btn-dark" onClick={onClick}>
+  <button className="btn btn-dark m-1" onClick={onClick}>
     {children}
   </button>
 );

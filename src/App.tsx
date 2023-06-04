@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "./components/Button";
 import { Login } from "./components/Login";
@@ -9,7 +9,7 @@ import "./App.css";
 export const App: React.FC = () => {
   const [user, setUser] = useState({} as any);
   const [showLogin, setShowLogin] = useState(true);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const user = localStorage.getItem("user");
     const userObj = user ? JSON.parse(user) : null;
     setUser(userObj);
@@ -19,7 +19,7 @@ export const App: React.FC = () => {
     localStorage.removeItem("user");
     // remove user from state
     setUser(null as any);
-    setShowLogin(true);
+    !showLogin && setShowLogin(true);
   };
   console.log(user);
   if (user) {
